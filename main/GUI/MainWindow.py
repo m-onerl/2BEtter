@@ -10,17 +10,17 @@ class MainWindow(BoxLayout):
         super().__init__(orientation='vertical', **kwargs)
         self.analyze_callback = analyze_callback
 
-        self.instructions = Label(text="Analizuj Mecz!")
+        self.instructions = Label(text="Just analyze the match")
         self.add_widget(self.instructions)
 
         self.output = Label(text="", size_hint_y=2)
         self.add_widget(self.output)
 
-        self.analyze_button = Button(text="Analizuj Mecz!", size_hint_y=1)
+        self.analyze_button = Button(text="Analyze the match", size_hint_y=1)
         self.analyze_button.bind(on_press=self.on_analyze_button_click)
         self.add_widget(self.analyze_button)
 
     def on_analyze_button_click(self, instance):
         result = self.analyze_callback()
         self.output.text = "\n".join(
-            result) if result else "Jest dobrze, chłopaki robią robotę!"
+            result) if result else "Good job you are doing great!"
