@@ -5,9 +5,9 @@ from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 
 
-class MainWindow(BoxLayout): 
+class MainWindow(BoxLayout):
     def __init__(self, analyze_callback, **kwargs):
-        super().__init__(orientation='vertical', **kwargs)  
+        super().__init__(orientation='vertical', **kwargs)
         self.analyze_callback = analyze_callback
 
         self.instructions = Label(text="Analizuj Mecz!")
@@ -22,4 +22,5 @@ class MainWindow(BoxLayout):
 
     def on_analyze_button_click(self, instance):
         result = self.analyze_callback()
-        self.output.text = "\n".join(result) if result else "Jest dobrze, chłopaki robią robotę!"
+        self.output.text = "\n".join(
+            result) if result else "Jest dobrze, chłopaki robią robotę!"
