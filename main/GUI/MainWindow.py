@@ -2,15 +2,18 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
+from MemReader.MemoryReader import MemoryReader
+import time
 
 
 class MainWindow(BoxLayout):
-    def __init__(self, analyze_callback, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(orientation='vertical', **kwargs)
-        self.analyze_callback = analyze_callback
 
-        self.instructions = Label(text="Just analyze the match")
+        self.memory_reader = MemoryReader()
+
+        self.instructions = Label(
+            text="Click the button to analyze the match.")
         self.add_widget(self.instructions)
 
         self.output = Label(text="", size_hint_y=2)
@@ -21,6 +24,9 @@ class MainWindow(BoxLayout):
         self.add_widget(self.analyze_button)
 
     def on_analyze_button_click(self, instance):
-        result = self.analyze_callback()
-        self.output.text = "\n".join(
-            result) if result else "Good job you are doing great!"
+        try:
+            result = self.memory_reader.read_game_memory()
+            self.output.text = f"Memory read successfully!\n{result}"
+        except Exception as e:
+            print(f"Error reading memory: {e}")
+            print("Please ensure the game is running and try again.")
